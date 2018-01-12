@@ -7,4 +7,8 @@
     <color name="fb_light">#8B9DC3</color>
     <color name="twit_clr">#1dcaff</color>
     <color name="linked_in">#0077B5</color>
+    <color name="white">#ffffff</color>
+    <color name="g_plus_clr">#d34836</color>
+    <color name="btn_bg">#2E55E7</color>
+    <color name="screen_bg">#f0f4f7</color>
 </resources>
