@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+     android:orientation="vertical"
+    android:paddingBottom="10dp"
+
+    tools:context="com.example.walinnsinnovation.waltics.AddNoteActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_note"
+        android:text="Add New Note"
+        android:textSize="16dp"
+        android:textColor="@color/btn_bg"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_note"
+        >
+
+        <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="10dp"
+        card_view:cardCornerRadius="8dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/cardview_border">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@drawable/edit_bg"
+                android:id="@+id/txt_add_note"
+                android:hint="Add Note"
+                android:gravity="start"
+                android:padding="6dp"
+                android:textSize="15dp"
+                android:layout_marginTop="20dp"
+                android:maxLength="200"
+                android:textColor="@color/txt_clr"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+            </EditText>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_label"
+                android:text="Add Label"
+                android:textSize="16dp"
+                android:textColor="@color/btn_bg"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/txt_add_note"
+                android:padding="15dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_below="@+id/add_label"
+                android:layout_marginRight="15dp"
+                 android:background="@drawable/edit_bg"
+                 android:layout_marginLeft="15dp"
+                android:id="@+id/rel_spinner"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="5dp"
+                    android:spinnerMode="dropdown"  />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_drop_down" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_sche"
+                android:text="Schedule"
+                android:textSize="16dp"
+                android:textColor="@color/btn_bg"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/rel_spinner"
+                android:padding="15dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="15dp"
+
+                android:background="@drawable/edit_bg"
+                android:layout_below="@+id/txt_sche"
+                android:id="@+id/linear_txt"
+                android:layout_marginRight="15dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txt_date"
+                    android:text="20-07-2018"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:textColor="#000000"
+                    android:paddingLeft="6dp"
+                    android:textSize="15dp"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear_txt"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:id="@+id/btnsave"
+                android:text="Save"
+                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:background="@color/btn_bg_clr"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "115773653941",
+    "project_id": "firebase-waltics"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115773653941:android:857aafd7a87cc2f5",
+        "android_client_info": {
+          "package_name": "com.example.walinnsinnovation.waltics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115773653941-79kd7ej64sibudcorgdkt8h54ba57gtr.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "115773653941-cq0s9tdgp5r3dap48cq1ic29sv4qf3h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.walinnsinnovation.waltics",
+            "certificate_hash": "5bd375b913631048daa31d70cc510ead9615c3f5"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw9oex63UtO1LVduHirLVO7UA_5rGdHhQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
