@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "675293465096",
+    "project_id": "walinns-89387"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675293465096:android:857aafd7a87cc2f5",
+        "android_client_info": {
+          "package_name": "com.example.walinnsinnovation.waltics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675293465096-f1be97qvkb8m9fm2a5i1sit1ohgm8hvj.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "675293465096-6fedbu12cvq4lr2f8k1h2b6iqmir3qnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.walinnsinnovation.waltics",
+            "certificate_hash": "b5354d6987305014d132e1ec76db042d049ab955"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOKzbJQxHF7DXgW0LNNvOuCn6ELioqx-s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

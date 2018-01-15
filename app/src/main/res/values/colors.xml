@@ -11,4 +11,10 @@
     <color name="g_plus_clr">#d34836</color>
     <color name="btn_bg">#2E55E7</color>
     <color name="screen_bg">#f0f4f7</color>
+    <color name="txt_note">#E21212</color>
+    <color name="txt_clr">#000000</color>
+    <color name="orange">#E7472E</color>
+    <color name="btn_bg_clr">#2E93E7</color>
+    <color name="spinner_bg">#D5DFDC</color>
+    <color name="home_cat">#E72E52</color>
 </resources>
