@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
-import com.example.walinnsinnovation.waltics.R;
 
 import java.util.ArrayList;
 import java.util.List;

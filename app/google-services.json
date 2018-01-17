@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "480435959462-tvgm6p77j2ja60nrvprf4ukhqcea2314.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walinns.walinnsinnovation.waltics",
+            "certificate_hash": "5bd375b913631048daa31d70cc510ead9615c3f5"
+          }
+        },
+        {
           "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
