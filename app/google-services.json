@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "480435959462-2elg2510d73jstdd64hbod6mtj9jvkf4.apps.googleusercontent.com",
+          "client_id": "480435959462-3avetetfvk7l110a5achiljvpsak2tqh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.walinns.walinnsinnovation.waltics",
-            "certificate_hash": "991941163c11fd84775c23dc6f23b9a2e690d7ad"
+            "certificate_hash": "5b8db3b3a14ea20b27d97ddf974b4b0ad943ad01"
           }
         },
         {
