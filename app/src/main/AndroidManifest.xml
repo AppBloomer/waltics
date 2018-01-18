@@ -52,17 +52,28 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
-        <service android:name=".Notification.MyFirebaseMessagingService">
+        <service android:name="com.walinns.walinnsapi.WAMessingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".Notification.MyFirebaseInstanceIDService">
+        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <!--<service android:name=".Notification.MyFirebaseMessagingService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!--<service android:name=".Notification.MyFirebaseInstanceIDService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
 
     </application>
