@@ -97,7 +97,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
 
                         }else {
-                            WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                           // WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                            Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+                            intent.putExtra("Email","Fb Login");
+                            startActivity(intent);
+                            finish();
 
                         }
                     }
@@ -108,7 +112,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onError(FacebookException exception) {
-                        WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                       // WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                        Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+                        intent.putExtra("Email","Fb Login");
+                        startActivity(intent);
+                        finish();
 
                     }
                 }
@@ -187,6 +195,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else {
             System.out.println("Google login :"+ result.getStatus());
             WalinnsAPI.getInstance().track("Login","error while login with google");
+            Intent intent = new Intent(MainActivity.this, HomeScreen.class);
+            intent.putExtra("Email","Google Login");
+            startActivity(intent);
+            finish();
 
         }
     }
