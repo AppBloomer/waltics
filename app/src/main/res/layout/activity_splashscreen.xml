@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/home_splash"
-    tools:context="com.example.walinnsinnovation.waltics.com.walinns.walinnsinnovation.waltics.Splashscreen">
+    tools:context="com.walinns.walinnsinnovation.waltics_test.Splashscreen">
 
     <RelativeLayout
         android:layout_width="match_parent"

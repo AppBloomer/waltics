@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 /**
  * Created by walinnsinnovation on 17/01/18.

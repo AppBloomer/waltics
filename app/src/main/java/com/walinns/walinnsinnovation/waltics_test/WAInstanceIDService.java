@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,9 +7,6 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.walinns.walinnsapi.WAFCMManager;
-import com.walinns.walinnsapi.WALog;
-import com.walinns.walinnsapi.WAPref;
 
 /**
  * Created by walinnsinnovation on 30/12/17.

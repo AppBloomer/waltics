@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics.DataBase;
+package com.walinns.walinnsinnovation.waltics_test.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.LoginData;
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.LoginData;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
 
 import java.util.ArrayList;
 import java.util.List;

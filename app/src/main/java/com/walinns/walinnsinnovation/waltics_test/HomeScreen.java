@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.DatabaseHandler;
 import com.walinns.walinnsapi.WalinnsAPI;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener {

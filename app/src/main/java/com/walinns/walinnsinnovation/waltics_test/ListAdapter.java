@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
 
 import java.util.ArrayList;
 import java.util.List;

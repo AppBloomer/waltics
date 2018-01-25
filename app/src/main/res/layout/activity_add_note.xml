@@ -7,7 +7,7 @@
     android:background="@color/white"
      android:orientation="vertical"
     android:fillViewport="true"
-    tools:context="com.example.walinnsinnovation.waltics.com.walinns.walinnsinnovation.waltics.AddNoteActivity">
+    tools:context="com.walinns.walinnsinnovation.waltics_test.AddNoteActivity">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

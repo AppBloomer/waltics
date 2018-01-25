@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="2"
     android:paddingBottom="10dp"
-    tools:context="com.example.walinnsinnovation.waltics.com.walinns.walinnsinnovation.waltics.ListNoteActivity">
+    tools:context="com.walinns.walinnsinnovation.waltics_test.ListNoteActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

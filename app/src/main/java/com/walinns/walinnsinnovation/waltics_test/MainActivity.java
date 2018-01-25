@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,7 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
+import com.google.android.gms.plus.Plus;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.walinns.walinnsinnovation.waltics.R.layout.activity_splashscreen);
+        setContentView(com.walinns.walinnsinnovation.waltics_test.R.layout.activity_splashscreen);
         FacebookSdk.sdkInitialize(getApplicationContext());
         if (BuildConfig.DEBUG) {
             FacebookSdk.setIsDebugEnabled(true);
@@ -56,11 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().hide();
         }
         WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
-        linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus);
-        linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_fb);
+        linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus);
+        linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
         linear_g_plus.setOnClickListener(this);
-        progress = (ProgressBar)findViewById(com.walinns.walinnsinnovation.waltics.R.id.progress);
+        progress = (ProgressBar)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.progress);
         sharedCommon = new SharedCommon(MainActivity.this);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
     }
 
 
@@ -128,14 +130,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case com.walinns.walinnsinnovation.waltics.R.id.linear_fb:
+            case com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb:
                 progress.setVisibility(View.VISIBLE);
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
                         Arrays.asList("user_photos", "email", "user_birthday", "public_profile")
                 );
                 break;
-            case com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus:
+            case com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus:
                 progress.setVisibility(View.VISIBLE);
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String personName = acct.getDisplayName();
            // String personPhotoUrl = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
+
             if(!personName.isEmpty()){
                 sharedCommon.save(SharedCommon.email, personName);
             }

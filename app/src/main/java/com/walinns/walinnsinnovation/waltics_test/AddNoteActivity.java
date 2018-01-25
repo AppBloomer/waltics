@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
-import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.DatabaseHandler;
 import com.walinns.walinnsapi.WalinnsAPI;
 
 import java.text.ParseException;

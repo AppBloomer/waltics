@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "480435959462",
-    "firebase_url": "https://notes-b1e2a.firebaseio.com",
-    "project_id": "notes-b1e2a",
-    "storage_bucket": "notes-b1e2a.appspot.com"
+    "project_number": "827269325094",
+    "firebase_url": "https://notesnotification-271d8.firebaseio.com",
+    "project_id": "notesnotification-271d8",
+    "storage_bucket": "notesnotification-271d8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:480435959462:android:faa125e2035d66d0",
+        "mobilesdk_app_id": "1:827269325094:android:a1f92507c580f924",
         "android_client_info": {
-          "package_name": "com.walinns.walinnsinnovation.waltics"
+          "package_name": "com.walinns.walinnsinnovation.waltics_test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "480435959462-tvgm6p77j2ja60nrvprf4ukhqcea2314.apps.googleusercontent.com",
+          "client_id": "827269325094-m9g6rv7ednn55osn4fn8vr9brcq7q9ni.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.walinns.walinnsinnovation.waltics",
+            "package_name": "com.walinns.walinnsinnovation.waltics_test",
             "certificate_hash": "5bd375b913631048daa31d70cc510ead9615c3f5"
           }
         },
         {
-          "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
+          "client_id": "827269325094-ip5nj99v3bgsa7phmf1g33foaf99sotl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCdgNr_tVjtBuFc6wa0I7ixXatg79MkUlw"
+          "current_key": "AIzaSyBfTe4sfPzqYfCbs_ctGUisDUc4rnz1nsU"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
+              "client_id": "827269325094-ip5nj99v3bgsa7phmf1g33foaf99sotl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

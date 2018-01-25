@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics.BeanClass;
+package com.walinns.walinnsinnovation.waltics_test.BeanClass;
 
 /**
  * Created by walinnsinnovation on 12/01/18.

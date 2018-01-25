@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.app.Activity;
 import android.content.ClipData;
@@ -16,8 +16,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
-import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.DatabaseHandler;
 import com.walinns.walinnsapi.WalinnsAPI;
 
 import java.util.ArrayList;
