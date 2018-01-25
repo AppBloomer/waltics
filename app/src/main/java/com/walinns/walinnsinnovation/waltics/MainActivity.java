@@ -1,15 +1,28 @@
 package com.walinns.walinnsinnovation.waltics;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -17,6 +30,7 @@ import android.widget.Toast;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
@@ -43,7 +57,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     LinearLayout linear_g_plus,linear_fb;
@@ -53,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ProgressBar progress;
     SharedCommon sharedCommon;
     CleverTapAPI cleverTap;
+    AccountManager mAccountManager;
+    Dialog dialog;
+    List<String> account_list = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 public void onCompleted(JSONObject object, GraphResponse response) {
                                     Log.i("LoginActivity", response.toString());
                                     // Get facebook data from login
+                                    WalinnsAPI.getInstance().pushProfile(object);
                                     Bundle bFacebookData = getFacebookData(object);
                                     if(bFacebookData.getString("first_name")!=null && bFacebookData.getString("last_name")!=null){
                                         sharedCommon.save(SharedCommon.email, bFacebookData.getString("first_name")+" "+bFacebookData.getString("last_name"));
@@ -141,14 +162,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
         );
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//
+//        mGoogleApiClient = new GoogleApiClient.Builder(this)
+//                .enableAutoManage(this, this)
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
 
 
     }
@@ -167,8 +188,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus:
                 progress.setVisibility(View.VISIBLE);
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-                startActivityForResult(signInIntent, RC_SIGN_IN);
+//                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+//                startActivityForResult(signInIntent, RC_SIGN_IN);
+                dialog();
+                //syncGoogleAccount();
                 break;
         }
     }
@@ -281,5 +304,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         WalinnsAPI.getInstance().track("LoginActivity");
         cleverTap.event.push("LoginActivity");
+        progress.setVisibility(View.GONE);
+        if(dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
+
+
+    public void syncGoogleAccount() {
+//        if (isNetworkAvailable() == true) {
+//            String[] accountarrs = getAccountNames();
+//            if (accountarrs.length > 0) {
+//                //you can set here account for login
+//                getTask(MainActivity.this, accountarrs[0], SCOPE).execute();
+//            } else {
+//                Toast.makeText(MainActivity.this, "No Google Account Sync!",
+//                        Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            Toast.makeText(MainActivity.this, "No Network Service!",
+//                    Toast.LENGTH_SHORT).show();
+//        }
+    }
+    public boolean isNetworkAvailable() {
+
+        ConnectivityManager cm = (ConnectivityManager) MainActivity.this
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            Log.e("Network Testing", "***Available***");
+            return true;
+        }
+        Log.e("Network Testing", "***Not Available***");
+        return false;
+    }
+
+
+    private List<String> getAccountNames() {
+        List<String> act=new ArrayList<>();
+        mAccountManager = AccountManager.get(this);
+        Account[] accounts = mAccountManager
+                .getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+        String[] names = new String[accounts.length];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = accounts[i].name;
+            act.add(names[i]);
+        }
+        return act;
+    }
+
+    public void dialog()
+    {
+        dialog = new Dialog(MainActivity.this,R.style.myDialog);
+        dialog.setTitle("Select Content Language");
+        dialog.setContentView(R.layout.google_dialog);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        RecyclerView recyclerView = (RecyclerView)dialog.findViewById(R.id.recycler_view);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if (isNetworkAvailable() == true) {
+            account_list= getAccountNames();
+            if (account_list.size() > 0) {
+                recyclerView.setAdapter(new AccountAdapter(MainActivity.this, account_list));
+
+            }
+        }
+        dialog.show();
+    }
+
 }

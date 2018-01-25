@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_bg"
-    tools:context="com.example.walinnsinnovation.waltics.com.walinns.walinnsinnovation.waltics.HomeScreen">
+    tools:context="com.walinns.walinnsinnovation.waltics.HomeScreen">
 
     <TextView
         android:layout_width="match_parent"
