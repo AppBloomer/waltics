@@ -1,15 +1,22 @@
 package com.walinns.walinnsinnovation.waltics;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
+import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
@@ -34,6 +41,8 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int RC_SIGN_IN = 007;
     ProgressBar progress;
     SharedCommon sharedCommon;
+    CleverTapAPI cleverTap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +66,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().hide();
         }
         WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
+        try {
+            cleverTap = CleverTapAPI.getInstance(getApplicationContext());
+
+        } catch (CleverTapMetaDataNotFoundException e) {
+            // thrown if you haven't specified your CleverTap Account ID or Token in your AndroidManifest.xml
+        } catch (CleverTapPermissionsNotSatisfied e) {
+            // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
+        }
         linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus);
         linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
@@ -72,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         System.out.println("Facebook login :" + loginResult.getAccessToken().getToken());
                         if(loginResult.getAccessToken().getToken()!=null){
                             WalinnsAPI.getInstance().track("Button","Login with Facebook");
+                            cleverTap.event.push("Login with Facebook");
                             GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                                 @Override
@@ -90,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     }
                                 }
                             });
+
                             Bundle parameters = new Bundle();
                             parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
                             request.setParameters(parameters);
@@ -129,6 +149,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+
     }
 
 
@@ -170,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d("Google sign in", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             WalinnsAPI.getInstance().track("Button","Login with Google");
-
+            cleverTap.event.push("Login with Google");
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
@@ -258,5 +280,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         WalinnsAPI.getInstance().track("LoginActivity");
+        cleverTap.event.push("LoginActivity");
     }
 }

@@ -9,6 +9,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
+import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
 import com.walinns.walinnsapi.WalinnsAPI;
 
@@ -18,7 +21,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     RelativeLayout txt_add;
     DatabaseHandler databaseHandler;
     boolean doubleBackToExitPressedOnce = false;
-
+    CleverTapAPI cleverTap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,14 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
             System.out.println("Logged USER Name :" + getIntent().getStringExtra("Email"));
             txtusername.setText("Welcome "+getIntent().getStringExtra("Email")+" !");
         }
+        try {
+            cleverTap = CleverTapAPI.getInstance(getApplicationContext());
+
+        } catch (CleverTapMetaDataNotFoundException e) {
+            // thrown if you haven't specified your CleverTap Account ID or Token in your AndroidManifest.xml
+        } catch (CleverTapPermissionsNotSatisfied e) {
+            // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
+        }
     }
 
     @Override
@@ -41,6 +52,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.txt_add:
                 WalinnsAPI.getInstance().track("Button","Add Note");
+                cleverTap.event.push("Add Note");
+
                 Intent intent = new Intent(HomeScreen.this,AddNoteActivity.class);
                 startActivity(intent);
                 break;
