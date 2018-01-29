@@ -1,7 +1,9 @@
 package com.walinns.walinnsinnovation.waltics;
 
+import android.*;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +14,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -31,6 +38,7 @@ import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.google.android.gms.auth.GoogleAuthUtil;
+import com.walinns.walinnsapi.APIClient;
 import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
@@ -60,6 +68,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     LinearLayout linear_g_plus,linear_fb;
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     AccountManager mAccountManager;
     Dialog dialog;
     List<String> account_list = new ArrayList<>();
+    private static final int MY_PERMISSIONS_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +183,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
 
+            case MY_PERMISSIONS_REQUEST: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    dialog();
+                } else {
+                  //  Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS);
+                    if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+
+                        requestPermissions(new String[]{android.Manifest.permission.GET_ACCOUNTS},
+                                MY_PERMISSIONS_REQUEST);
+                    }
+                }
+                return;
+
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
 
 
     @Override
@@ -190,7 +224,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 progress.setVisibility(View.VISIBLE);
 //                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
 //                startActivityForResult(signInIntent, RC_SIGN_IN);
-                dialog();
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS);
+                    if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+
+                        requestPermissions(new String[]{android.Manifest.permission.GET_ACCOUNTS},
+                                MY_PERMISSIONS_REQUEST);
+
+                    } else {
+
+                        dialog();
+                    }
+                }else {
+                    dialog();
+                }
+
                 //syncGoogleAccount();
                 break;
         }
@@ -358,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog = new Dialog(MainActivity.this,R.style.myDialog);
         dialog.setTitle("Select Content Language");
         dialog.setContentView(R.layout.google_dialog);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(false);
         RecyclerView recyclerView = (RecyclerView)dialog.findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

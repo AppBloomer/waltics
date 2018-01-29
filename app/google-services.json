@@ -40,15 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
+              "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
               "client_id": "480435959462-1rci3848ipequid18npe8unks9fuvalf.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.walinns.UDo"
               }
-            },
-            {
-              "client_id": "480435959462-2gt9ihtta1jivgiea3088tng2fb5cdu5.apps.googleusercontent.com",
-              "client_type": 3
             }
           ]
         },
