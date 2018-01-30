@@ -52,8 +52,8 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         switch (view.getId()){
             case R.id.txt_add:
                 WalinnsAPI.getInstance().track("Button","Add Note");
-                cleverTap.event.push("Add Note");
-
+               // cleverTap.event.push("Add Note");
+                System.out.println("Errorrrrr" + "main");
                 Intent intent = new Intent(HomeScreen.this,AddNoteActivity.class);
                 startActivity(intent);
                 break;

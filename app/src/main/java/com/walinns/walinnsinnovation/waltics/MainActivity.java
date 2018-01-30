@@ -38,6 +38,8 @@ import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.walinns.walinnsapi.APIClient;
 import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
@@ -73,15 +75,12 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     LinearLayout linear_g_plus,linear_fb;
     CallbackManager callbackManager;
-    GoogleApiClient mGoogleApiClient;
-    private static final int RC_SIGN_IN = 007;
     ProgressBar progress;
     SharedCommon sharedCommon;
     CleverTapAPI cleverTap;
-    AccountManager mAccountManager;
-    Dialog dialog;
-    List<String> account_list = new ArrayList<>();
-    private static final int MY_PERMISSIONS_REQUEST = 1;
+    private GoogleSignInOptions gso;
+    private GoogleApiClient mGoogleApiClient;
+    private int SIGN_IN = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,42 +171,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
         );
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//
-//        mGoogleApiClient = new GoogleApiClient.Builder(this)
-//                .enableAutoManage(this, this)
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-//                .build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .addApi(Plus.API)
+                .build();
 
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
 
-            case MY_PERMISSIONS_REQUEST: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    dialog();
-                } else {
-                  //  Toast.makeText(MainActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
-                    ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS);
-                    if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-
-                        requestPermissions(new String[]{android.Manifest.permission.GET_ACCOUNTS},
-                                MY_PERMISSIONS_REQUEST);
-                    }
-                }
-                return;
-
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
 
 
     @Override
@@ -222,24 +197,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus:
                 progress.setVisibility(View.VISIBLE);
-//                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-//                startActivityForResult(signInIntent, RC_SIGN_IN);
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS);
-                    if (ContextCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, SIGN_IN);
 
-                        requestPermissions(new String[]{android.Manifest.permission.GET_ACCOUNTS},
-                                MY_PERMISSIONS_REQUEST);
-
-                    } else {
-
-                        dialog();
-                    }
-                }else {
-                    dialog();
-                }
-
-                //syncGoogleAccount();
                 break;
         }
     }
@@ -247,9 +207,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == SIGN_IN) {
+            System.out.println("Google sign in :" + "onRequest code");
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                //Calling a new function to handle signin
             handleSignInResult(result);
+
         }else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
@@ -260,28 +223,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d("Google sign in", "handleSignInResult:" + result.isSuccess());
+        System.out.println("Google sign in result" + result.isSuccess());
         if (result.isSuccess()) {
             WalinnsAPI.getInstance().track("Button","Login with Google");
+            Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+
             cleverTap.event.push("Login with Google");
-            // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
 
-            Log.e("Google sign in", "display name: " + acct.getDisplayName());
-
-            String personName = acct.getDisplayName();
-           // String personPhotoUrl = acct.getPhotoUrl().toString();
-            String email = acct.getEmail();
-            if(!personName.isEmpty()){
-                sharedCommon.save(SharedCommon.email, personName);
+            if(currentPerson.getDisplayName() !=null){
+               sharedCommon.save(SharedCommon.email, currentPerson.getDisplayName());
+                WalinnsAPI.getInstance().pushGoogleProfile(currentPerson);
             }
 
-            Log.e("Google sign in", "Name: " + personName + ", email: " + email
-                    + ", Image: " );
+
             Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
             progress.setVisibility(View.GONE);
             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
-            intent.putExtra("Email",personName);
+            if(currentPerson.getDisplayName() !=null) {
+                System.out.println("Google sign in result if" + currentPerson.getDisplayName());
+                intent.putExtra("Email", currentPerson.getDisplayName());
+            }else {
+                System.out.println("Google sign in result else" + currentPerson.getDisplayName());
+                intent.putExtra("Email", "Google");
+            }
             startActivity(intent);
             finish();
 
@@ -339,7 +303,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
+        sharedCommon = new SharedCommon(MainActivity.this);
         if(sharedCommon.getValue(SharedCommon.email)!=null && !sharedCommon.getValue(SharedCommon.email).isEmpty()){
+            System.out.println("Google sign in OnDestroy :" + sharedCommon.getValue(SharedCommon.email));
             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
             intent.putExtra("Email",sharedCommon.getValue(SharedCommon.email));
             startActivity(intent);
@@ -350,30 +316,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("OnDestroy :" + "MainActivity");
         WalinnsAPI.getInstance().track("LoginActivity");
         cleverTap.event.push("LoginActivity");
         progress.setVisibility(View.GONE);
-        if(dialog.isShowing()){
-            dialog.dismiss();
-        }
+
     }
 
 
-    public void syncGoogleAccount() {
-//        if (isNetworkAvailable() == true) {
-//            String[] accountarrs = getAccountNames();
-//            if (accountarrs.length > 0) {
-//                //you can set here account for login
-//                getTask(MainActivity.this, accountarrs[0], SCOPE).execute();
-//            } else {
-//                Toast.makeText(MainActivity.this, "No Google Account Sync!",
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            Toast.makeText(MainActivity.this, "No Network Service!",
-//                    Toast.LENGTH_SHORT).show();
-//        }
-    }
     public boolean isNetworkAvailable() {
 
         ConnectivityManager cm = (ConnectivityManager) MainActivity.this
@@ -385,41 +335,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Log.e("Network Testing", "***Not Available***");
         return false;
-    }
-
-
-    private List<String> getAccountNames() {
-        List<String> act=new ArrayList<>();
-        mAccountManager = AccountManager.get(this);
-        Account[] accounts = mAccountManager
-                .getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
-        String[] names = new String[accounts.length];
-        for (int i = 0; i < names.length; i++) {
-            names[i] = accounts[i].name;
-            act.add(names[i]);
-        }
-        return act;
-    }
-
-    public void dialog()
-    {
-        dialog = new Dialog(MainActivity.this,R.style.myDialog);
-        dialog.setTitle("Select Content Language");
-        dialog.setContentView(R.layout.google_dialog);
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.setCancelable(false);
-        RecyclerView recyclerView = (RecyclerView)dialog.findViewById(R.id.recycler_view);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if (isNetworkAvailable() == true) {
-            account_list= getAccountNames();
-            if (account_list.size() > 0) {
-                recyclerView.setAdapter(new AccountAdapter(MainActivity.this, account_list));
-
-            }
-        }
-        dialog.show();
     }
 
 }

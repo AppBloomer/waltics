@@ -88,11 +88,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteTitle(String name)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        db.execSQL("DELETE FROM " + "noteItem_tbl"+ " WHERE "+"note_txt"+"='"+name+"'");
+         String val = escape(name);
+        db.execSQL("DELETE FROM " + "noteItem_tbl"+ " WHERE "+"note_txt"+"='"+val+"'");
 
 
      }
+    private static String escape(String s) {
+        return s != null ? s.replaceAll("\'", "\'\'") : null;
+    }
     public void addCompleteItem(NoteItem noteItem) {
         SQLiteDatabase db = this.getWritableDatabase();
 

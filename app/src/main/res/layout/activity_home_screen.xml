@@ -8,22 +8,25 @@
     tools:context="com.walinns.walinnsinnovation.waltics.HomeScreen">
 
     <TextView
+        android:id="@+id/txtusername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtusername"
-        android:text="Welcome user !"
-        android:textSize="18dp"
+        android:layout_alignParentStart="true"
+         android:gravity="center"
         android:padding="15dp"
-        android:textStyle="bold"
+        android:text="Welcome user!"
         android:textColor="@color/btn_bg"
-        android:gravity="center"/>
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"
+         android:textStyle="bold" />
     <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
         android:layout_marginTop="42dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
-       android:layout_marginBottom="35dp">
+       android:layout_marginBottom="35dp"
+         android:id="@+id/relativeLayout">
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"

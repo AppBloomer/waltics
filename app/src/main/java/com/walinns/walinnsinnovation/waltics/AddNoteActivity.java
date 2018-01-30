@@ -60,6 +60,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         spinner.setAdapter(langAdapter);
         updateLabel();
         if(getIntent()!=null){
+            System.out.println("Errorrrrr" +  "if...");
 
             if(getIntent().getStringExtra("note_text")!=null){
                 getWindow().setSoftInputMode(
@@ -83,6 +84,8 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                 note_id = getIntent().getIntExtra("note_id", 0);
             }
         }else {
+            System.out.println("Errorrrrr" + "else");
+
             WalinnsAPI.getInstance().track("AddNoteActivity");
 
         }
@@ -174,6 +177,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         txt_date.setText(sdf.format(myCalendar.getTime()));
         WalinnsAPI.getInstance().track("Note Date" , txt_date.getText().toString());
+        System.out.println("Errorrrrr" + txt_date.getText().toString());
     }
 
 }
