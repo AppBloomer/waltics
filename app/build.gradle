@@ -13,15 +13,27 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            storeFile file("notes_keystore.jks")
+            storePassword 'Walinns@0077'
+            keyAlias 'Notes'
+            keyPassword 'Walinns@0077'
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     aaptOptions {
         cruncherEnabled = false
+    }
+    compileOptions {
+        android.compileOptions.sourceCompatibility 1.8
+        android.compileOptions.targetCompatibility 1.8
+
     }
 
 }
