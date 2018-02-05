@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.walinns.walinnsinnovation.waltics_test.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
         android:allowBackup="true"
@@ -49,13 +50,13 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics_test.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.walinns.walinnsinnovation.waltics_test.ListNoteActivity"></activity>
-        <service android:name="com.walinns.walinnsinnovation.waltics_test.WAMessingService">
+        <service android:name="com.walinns.walinnsapi.WAMessingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="com.walinns.walinnsinnovation.waltics_test.WAInstanceIDService">
+        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
