@@ -35,6 +35,10 @@ android {
         android.compileOptions.targetCompatibility 1.8
 
     }
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v4'
+        all*.exclude group: 'com.android.support', module: 'support-annotations'
+    }
 
 }
 
@@ -53,9 +57,9 @@ dependencies {
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.google.firebase:firebase-core:10.2.0'
     compile 'com.google.android.gms:play-services-plus:10.2.0'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation files('Libs/WalinnsApi.jar')
     compile 'com.clevertap.android:clevertap-android-sdk:3.1.7'
-    compile 'com.walinns.walinnsapi:WalinnsApi:1.0.5'
+    compile 'com.android.support:multidex:1.0.1'
 
 }
 apply plugin: 'com.google.gms.google-services'
