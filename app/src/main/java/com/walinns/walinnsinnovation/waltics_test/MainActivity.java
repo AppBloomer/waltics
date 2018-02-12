@@ -1,34 +1,14 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
-import android.*;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -36,11 +16,10 @@ import android.widget.Toast;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
-import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.walinns.walinnsapi.APIClient;
-import com.walinns.walinnsinnovation.waltics.DataBase.SharedCommon;
+import com.walinns.walinnsapi.WalinnsAPI;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -52,24 +31,17 @@ import com.facebook.LoggingBehavior;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.walinns.walinnsapi.WalinnsAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     LinearLayout linear_g_plus,linear_fb;
@@ -84,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.walinns.walinnsinnovation.waltics.R.layout.activity_splashscreen);
+        setContentView(com.walinns.walinnsinnovation.waltics_test.R.layout.activity_splashscreen);
         FacebookSdk.sdkInitialize(getApplicationContext());
         if (BuildConfig.DEBUG) {
             FacebookSdk.setIsDebugEnabled(true);
@@ -93,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
         try {
             cleverTap = CleverTapAPI.getInstance(getApplicationContext());
 
@@ -102,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (CleverTapPermissionsNotSatisfied e) {
             // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
         }
-        linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus);
-        linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_fb);
+        linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus);
+        linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
         linear_g_plus.setOnClickListener(this);
-        progress = (ProgressBar)findViewById(com.walinns.walinnsinnovation.waltics.R.id.progress);
+        progress = (ProgressBar)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.progress);
         sharedCommon = new SharedCommon(MainActivity.this);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(
@@ -117,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // Handle success
                         System.out.println("Facebook login :" + loginResult.getAccessToken().getToken());
                         if(loginResult.getAccessToken().getToken()!=null){
-                            WalinnsAPI.getInstance().track("Button","Login with Facebook");
                             cleverTap.event.push("Login with Facebook");
                             GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
@@ -125,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 public void onCompleted(JSONObject object, GraphResponse response) {
                                     Log.i("LoginActivity", response.toString());
                                     // Get facebook data from login
-                                    WalinnsAPI.getInstance().pushProfile(object);
                                     Bundle bFacebookData = getFacebookData(object);
                                     if(bFacebookData.getString("first_name")!=null && bFacebookData.getString("last_name")!=null){
                                         sharedCommon.save(SharedCommon.email, bFacebookData.getString("first_name")+" "+bFacebookData.getString("last_name"));
@@ -146,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
 
                         }else {
-                           // WalinnsAPI.getInstance().track("Login","error while login with Fb");
                             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                             intent.putExtra("Email","Fb Login");
                             startActivity(intent);
@@ -187,14 +155,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case com.walinns.walinnsinnovation.waltics.R.id.linear_fb:
+            case com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb:
                 progress.setVisibility(View.VISIBLE);
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
                         Arrays.asList("user_photos", "email", "user_birthday", "public_profile")
                 );
+                WalinnsAPI.getInstance().track("Button","login with google");
                 break;
-            case com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus:
+            case com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus:
                 progress.setVisibility(View.VISIBLE);
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, SIGN_IN);
@@ -224,25 +193,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(GoogleSignInResult result) {
         System.out.println("Google sign in result" + result.isSuccess());
         if (result.isSuccess()) {
-            WalinnsAPI.getInstance().track("Button","Login with Google");
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 
             cleverTap.event.push("Login with Google");
-
-            if(currentPerson.getDisplayName() !=null){
-               sharedCommon.save(SharedCommon.email, currentPerson.getDisplayName());
-                WalinnsAPI.getInstance().pushGoogleProfile(currentPerson);
+            if(currentPerson !=null) {
+                if (currentPerson.getDisplayName() != null) {
+                    sharedCommon.save(SharedCommon.email, currentPerson.getDisplayName());
+                }
             }
 
 
             Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
             progress.setVisibility(View.GONE);
             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
-            if(currentPerson.getDisplayName() !=null) {
+            if(currentPerson !=null&&currentPerson.getDisplayName() !=null) {
                 System.out.println("Google sign in result if" + currentPerson.getDisplayName());
                 intent.putExtra("Email", currentPerson.getDisplayName());
             }else {
-                System.out.println("Google sign in result else" + currentPerson.getDisplayName());
                 intent.putExtra("Email", "Google");
             }
             startActivity(intent);
@@ -250,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else {
             System.out.println("Google login :"+ result.getStatus());
-            WalinnsAPI.getInstance().track("Login","error while login with google");
             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
             intent.putExtra("Email","Google Login");
             startActivity(intent);
@@ -316,9 +282,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         System.out.println("OnDestroy :" + "MainActivity");
-        WalinnsAPI.getInstance().track("LoginActivity");
         cleverTap.event.push("LoginActivity");
         progress.setVisibility(View.GONE);
+        WalinnsAPI.getInstance().track("MainActivity");
+        WalinnsAPI.getInstance().track("Button","Login");
+
 
     }
 
@@ -335,5 +303,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("Network Testing", "***Not Available***");
         return false;
     }
+
 
 }

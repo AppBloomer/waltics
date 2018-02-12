@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.walinns.walinnsinnovation.waltics">
+    package="com.walinns.walinnsinnovation.waltics_test">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,10 +15,10 @@
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name="com.walinns.walinnsinnovation.waltics.MyApplication"
+        android:name="com.walinns.walinnsinnovation.waltics_test.MyApplication"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.walinns.walinnsinnovation.waltics.MainActivity"
+            android:name="com.walinns.walinnsinnovation.waltics_test.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.walinns.walinnsinnovation.waltics.Splashscreen"
+            android:name="com.walinns.walinnsinnovation.waltics_test.Splashscreen"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -50,23 +50,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name="com.walinns.walinnsinnovation.waltics.HomeScreen" />
-        <activity android:name="com.walinns.walinnsinnovation.waltics.AddNoteActivity"
+        <activity android:name="com.walinns.walinnsinnovation.waltics_test.HomeScreen" />
+        <activity android:name="com.walinns.walinnsinnovation.waltics_test.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
-        <service android:name="com.walinns.walinnsapi.WAMessingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
-        <meta-data
+        <activity android:name="com.walinns.walinnsinnovation.waltics_test.ListNoteActivity"></activity>
+          <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
             android:value="84R-987-6Z5Z" />
         <meta-data

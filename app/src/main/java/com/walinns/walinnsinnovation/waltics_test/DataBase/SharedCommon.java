@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics.DataBase;
+package com.walinns.walinnsinnovation.waltics_test.DataBase;
 
 import android.content.Context;
 import android.content.SharedPreferences;

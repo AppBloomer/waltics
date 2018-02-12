@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -12,8 +12,7 @@ import android.widget.Toast;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
-import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
-import com.walinns.walinnsapi.WalinnsAPI;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.DatabaseHandler;
 
 public class HomeScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,8 +28,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        WalinnsAPI.getInstance().track("HomeScreen");
-        txtusername = (TextView)findViewById(R.id.txtusername);
+         txtusername = (TextView)findViewById(R.id.txtusername);
         txt_add = (RelativeLayout)findViewById(R.id.txt_add);
         txt_add.setOnClickListener(this);
         if(getIntent()!=null&&getIntent().getStringExtra("Email")!=null){
@@ -51,8 +49,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.txt_add:
-                WalinnsAPI.getInstance().track("Button","Add Note");
-               // cleverTap.event.push("Add Note");
+                // cleverTap.event.push("Add Note");
                 System.out.println("Errorrrrr" + "main");
                 Intent intent = new Intent(HomeScreen.this,AddNoteActivity.class);
                 startActivity(intent);

@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.MyView
     @Override
     public CompleteAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(com.walinns.walinnsinnovation.waltics.R.layout.note_list_item, parent, false);
+                .inflate(com.walinns.walinnsinnovation.waltics_test.R.layout.note_list_item, parent, false);
 
         return new CompleteAdapter.MyViewHolder(itemView);
     }
@@ -42,15 +42,15 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.MyView
         holder.txt_note.setText(nodeItemList.get(position).getNote_text());
         holder.note_cat.setText(nodeItemList.get(position).getNote_cat());
         if(nodeItemList.get(position).getNote_cat().equals("Home")){
-            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics.R.color.home_cat));
+            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics_test.R.color.home_cat));
         }else if(nodeItemList.get(position).getNote_cat().equals("Office")){
-            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics.R.color.office));
+            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics_test.R.color.office));
 
         }else if(nodeItemList.get(position).getNote_cat().equals("Extras")){
-            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics.R.color.extra));
+            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics_test.R.color.extra));
 
         }else if(nodeItemList.get(position).getNote_cat().equals("Other")){
-            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics.R.color.other));
+            holder.note_cat.setBackgroundColor(mContext.getResources().getColor(com.walinns.walinnsinnovation.waltics_test.R.color.other));
 
         }
 
@@ -67,8 +67,8 @@ public class CompleteAdapter extends RecyclerView.Adapter<CompleteAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            txt_note = (TextView)view.findViewById(com.walinns.walinnsinnovation.waltics.R.id.note_text);
-            note_cat = (TextView)view.findViewById(com.walinns.walinnsinnovation.waltics.R.id.note_cat);
+            txt_note = (TextView)view.findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.note_text);
+            note_cat = (TextView)view.findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.note_cat);
 
         }
     }

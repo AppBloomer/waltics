@@ -1,4 +1,4 @@
-package com.walinns.walinnsinnovation.waltics;
+package com.walinns.walinnsinnovation.waltics_test;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -16,9 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.walinns.walinnsinnovation.waltics.BeanClass.NoteItem;
-import com.walinns.walinnsinnovation.waltics.DataBase.DatabaseHandler;
-import com.walinns.walinnsapi.WalinnsAPI;
+import com.walinns.walinnsinnovation.waltics_test.BeanClass.NoteItem;
+import com.walinns.walinnsinnovation.waltics_test.DataBase.DatabaseHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -68,7 +67,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                 );
                 txt_note.setText("Note Detail");
                 btnsave.setText("Update");
-                WalinnsAPI.getInstance().track("UpdateNoteActivity");
 
                 txt_add_note.setText(getIntent().getStringExtra("note_text"));
             }
@@ -86,13 +84,11 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         }else {
             System.out.println("Errorrrrr" + "else");
 
-            WalinnsAPI.getInstance().track("AddNoteActivity");
 
         }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                WalinnsAPI.getInstance().track("Spinner cat",spinner.getSelectedItem().toString());
 
             }
 
@@ -112,7 +108,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                     if (!txt_add_note.getText().toString().isEmpty() && !spinner.getSelectedItem().toString().isEmpty()) {
                         NoteItem noteItem = new NoteItem(txt_add_note.getText().toString(), spinner.getSelectedItem().toString(), txt_date.getText().toString());
                         db.updateNote(noteItem, note_id);
-                        WalinnsAPI.getInstance().track("Button","Update");
                         Intent intent = new Intent(AddNoteActivity.this, ListNoteActivity.class);
                         startActivity(intent);
                         finish();
@@ -123,7 +118,6 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
                     if (!txt_add_note.getText().toString().isEmpty() && !spinner.getSelectedItem().toString().isEmpty()) {
                         NoteItem noteItem = new NoteItem(txt_add_note.getText().toString(), spinner.getSelectedItem().toString(), txt_date.getText().toString());
                         db.addNote(noteItem);
-                        WalinnsAPI.getInstance().track("Button","Save");
 
                         Toast.makeText(getApplicationContext(), "Note added", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddNoteActivity.this, ListNoteActivity.class);
@@ -176,8 +170,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
         String myFormat = "dd-MM-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         txt_date.setText(sdf.format(myCalendar.getTime()));
-        WalinnsAPI.getInstance().track("Note Date" , txt_date.getText().toString());
-        System.out.println("Errorrrrr" + txt_date.getText().toString());
+         System.out.println("Errorrrrr" + txt_date.getText().toString());
     }
 
 }
