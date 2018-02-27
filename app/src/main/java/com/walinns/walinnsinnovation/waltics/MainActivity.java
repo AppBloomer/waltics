@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if(loginResult.getAccessToken().getToken()!=null){
                             WalinnsAPI.getInstance().track("Button","Login with Facebook");
                             cleverTap.event.push("Login with Facebook");
-                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken()/*facebook access_token*/, new GraphRequest.GraphJSONObjectCallback() {
 
                                 @Override
                                 public void onCompleted(JSONObject object, GraphResponse response) {
@@ -208,9 +208,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SIGN_IN) {
             System.out.println("Google sign in :" + "onRequest code");
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 //Calling a new function to handle signin
-            handleSignInResult(result);
+            handleSignInResult(googleSignInResult);
 
         }else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -221,9 +221,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
-    private void handleSignInResult(GoogleSignInResult result) {
-        System.out.println("Google sign in result" + result.isSuccess());
-        if (result.isSuccess()) {
+    private void handleSignInResult(GoogleSignInResult googleSignInResult) {
+        System.out.println("Google sign in result" + googleSignInResult.isSuccess());
+        if (googleSignInResult.isSuccess()) {
             WalinnsAPI.getInstance().track("Button","Login with Google");
             Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
 
@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             finish();
 
         }else {
-            System.out.println("Google login :"+ result.getStatus());
+            System.out.println("Google login :"+ googleSignInResult.getStatus());
             WalinnsAPI.getInstance().track("Login","error while login with google");
             Intent intent = new Intent(MainActivity.this, HomeScreen.class);
             intent.putExtra("Email","Google Login");
