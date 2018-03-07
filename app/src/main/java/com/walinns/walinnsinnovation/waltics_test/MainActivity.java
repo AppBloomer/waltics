@@ -18,8 +18,7 @@ import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.walinns.walinnsapi.WalinnsAPI;
-import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
+ import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
 import com.facebook.BuildConfig;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -161,8 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         this,
                         Arrays.asList("user_photos", "email", "user_birthday", "public_profile")
                 );
-                WalinnsAPI.getInstance().track("Button","login with google");
-                break;
+                 break;
             case com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus:
                 progress.setVisibility(View.VISIBLE);
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -284,8 +282,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.out.println("OnDestroy :" + "MainActivity");
         cleverTap.event.push("LoginActivity");
         progress.setVisibility(View.GONE);
-        WalinnsAPI.getInstance().track("MainActivity");
-        WalinnsAPI.getInstance().track("Button","Login");
 
 
     }
