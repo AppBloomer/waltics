@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
@@ -54,19 +53,7 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
-        <service
-        android:name="com.clevertap.android.sdk.FcmTokenListenerService">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-        </intent-filter>
-    </service>
 
-        <service
-            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
@@ -82,7 +69,22 @@
         <meta-data
             android:name="CLEVERTAP_INAPP_EXCLUDE"
             android:value="MainActivity, MainActivity" />
+        <service
+            android:name="com.clevertap.android.sdk.FcmTokenListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
+        <service
+            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="CLEVERTAP_NOTIFICATION_ICON"
+            android:value="ic_stat_red_star"/>
     </application>
 
 </manifest>
