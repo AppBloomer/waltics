@@ -54,15 +54,17 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
-        <service android:name="com.walinns.walinnsapi.WAMessingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+        <service
+        android:name="com.clevertap.android.sdk.FcmTokenListenerService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+        </intent-filter>
+    </service>
 
-        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
+        <service
+            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
