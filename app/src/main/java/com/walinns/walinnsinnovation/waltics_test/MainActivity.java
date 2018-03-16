@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     // Get facebook data from login
                                     Bundle bFacebookData = getFacebookData(object);
                                     if(bFacebookData.getString("email")!=null&& bFacebookData.getString("first_name")!=null && bFacebookData.getString("last_name")!=null){
-                                        sharedCommon.save(SharedCommon.email, bFacebookData.getString("email")+" "+bFacebookData.getString("last_name"));
+                                        sharedCommon.save(SharedCommon.email, bFacebookData.getString("first_name")+" "+bFacebookData.getString("last_name"));
 
                                         fb_login(bFacebookData.getString("email"), bFacebookData.getString("first_name"),bFacebookData.getString("last_name"));
 
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
                             request.setParameters(parameters);
                             request.executeAsync();
-                            Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
 
                         }else {
                             WalinnsAPI.getInstance().track("Login","error while login with Fb");
@@ -152,71 +151,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void fb_login(String email, final String first_name, final String last_name) {
+    private void fb_login(final String email, final String first_name, final String last_name) {
 
 
-//        JSONObject filed = new JSONObject();
-//        try {
-//            filed.put("first_name",first_name);
-//            filed.put("last_name",last_name);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        JSONObject jsonObject = new JSONObject();
-//        try {
-//            jsonObject.put("accessToken",token);
-//            jsonObject.put("fieldsMapping",filed);
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Call<ResponseBody> user_register= apiClient.fb_login(jsonObject.toString());
-//
-//        System.out.println("Response :" + jsonObject.toString());
-//
-//        user_register.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                System.out.println("Response fb:" + response.isSuccessful());
-//                JSONObject jsonObject;
-//                try {
-//                    if(response.isSuccessful()) {
-//
-//                        System.out.println("Response fb data :"+ response.body().string());
-//
-//
-////                        sharedPref.save(SharedPref.user_token,"15B02DDD-9263-9D3A-FF0F-98755E634B00");
-////                        Toast.makeText(getApplicationContext(),"Login Successfully",Toast.LENGTH_SHORT).show();
-////                        sharedPref.save(SharedPref.logged_in,"logged");
-////                        Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-////                        startActivity(intent);
-////                        finish();
-//
-//
-//                    }else {
-//                        jsonObject = new JSONObject(response.errorBody().string());
-//                        System.out.println("Response error :" + jsonObject.toString() +" mesg"+ jsonObject.getString("message"));
-//                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-//
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                System.out.println("Response error :" + t.toString());
-//
-//            }
-//        });
-        Map<String, String> facebookFieldMappings = new HashMap<String, String>();
+         Map<String, String> facebookFieldMappings = new HashMap<String, String>();
         facebookFieldMappings.put( "email", first_name );
 
         List<String> permissions = new ArrayList<String>();
@@ -236,7 +174,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     {
                         // user logged in successfully
                         System.out.println("facebook response :"+ loggedInUser.toString());
-                        progress.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
+                         progress.setVisibility(View.GONE);
                         Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                         intent.putExtra("Email",first_name+" "+last_name);
                         startActivity(intent);
@@ -249,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     {
                         // failed to log in
                         System.out.println("facebook response :"+ fault.toString());
+                        Toast.makeText(getApplicationContext(),fault.getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
                 } );
