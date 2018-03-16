@@ -50,7 +50,16 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics_test.AddNoteActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name="com.walinns.walinnsinnovation.waltics_test.ListNoteActivity"></activity>
-
+        <service android:name="com.walinns.walinnsapi.WAMessingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
 
