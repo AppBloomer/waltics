@@ -11,6 +11,7 @@ public class SharedCommon {
     static SharedPreferences sharedPreferences;
     static SharedPreferences.Editor editor;
     public static final String email = "email";
+    public static final String access_token = "access_token";
 
     public SharedCommon(Context context) {
         sharedPreferences = context.getSharedPreferences("my_pref", 0);

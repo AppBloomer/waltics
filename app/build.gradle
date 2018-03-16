@@ -37,5 +37,8 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation files('Libs/WalinnsApi.jar')
+    compile 'com.backendless:backendless:4.0.+'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
 }
 apply plugin: 'com.google.gms.google-services'
