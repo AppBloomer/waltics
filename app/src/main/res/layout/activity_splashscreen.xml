@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/home_splash"
-    tools:context="com.example.walinnsinnovation.waltics.com.walinns.walinnsinnovation.waltics.Splashscreen">
+    android:background="@mipmap/main_bg"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,6 +49,7 @@
             android:id="@+id/linear_g_plus"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/linear_fb"
+            android:visibility="gone"
             android:background="@color/g_plus_clr">
             <RelativeLayout
                 android:layout_width="25dp"

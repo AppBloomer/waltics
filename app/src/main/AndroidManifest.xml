@@ -55,36 +55,47 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
 
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
-        <meta-data
-            android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="84R-987-6Z5Z" />
-        <meta-data
-            android:name="CLEVERTAP_TOKEN"
-            android:value="abc-24b" />
-        <activity
-            android:name="com.clevertap.android.sdk.InAppNotificationActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
+            <!--android:value="84R-987-6Z5Z" />-->
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_TOKEN"-->
+            <!--android:value="abc-24b" />-->
+        <!--<activity-->
+            <!--android:name="com.clevertap.android.sdk.InAppNotificationActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
-        <meta-data
-            android:name="CLEVERTAP_INAPP_EXCLUDE"
-            android:value="MainActivity, MainActivity" />
-        <service
-            android:name="com.clevertap.android.sdk.FcmTokenListenerService">
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_INAPP_EXCLUDE"-->
+            <!--android:value="MainActivity, MainActivity" />-->
+        <!--<service-->
+            <!--android:name="com.clevertap.android.sdk.FcmTokenListenerService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
+        <!--<service-->
+            <!--android:name="com.clevertap.android.sdk.FcmMessageListenerService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+        <!--<meta-data-->
+            <!--android:name="CLEVERTAP_NOTIFICATION_ICON"-->
+            <!--android:value="ic_stat_red_star"/>-->
+        <service android:name="com.walinns.walinnsapi.WAMessingService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service
-            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
+        <service android:name="com.walinns.walinnsapi.WAInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <meta-data
-            android:name="CLEVERTAP_NOTIFICATION_ICON"
-            android:value="ic_stat_red_star"/>
     </application>
 
 </manifest>
