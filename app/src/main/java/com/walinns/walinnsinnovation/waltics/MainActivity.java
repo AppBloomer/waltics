@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     Bundle bFacebookData = getFacebookData(object);
                                     if(bFacebookData.getString("first_name")!=null && bFacebookData.getString("last_name")!=null){
                                         sharedCommon.save(SharedCommon.email, bFacebookData.getString("first_name")+" "+bFacebookData.getString("last_name"));
-
+                                        Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
                                         progress.setVisibility(View.GONE);
                                         Intent intent = new Intent(MainActivity.this, HomeScreen.class);
                                         intent.putExtra("Email",bFacebookData.getString("first_name")+" "+bFacebookData.getString("last_name"));
@@ -140,10 +140,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             });
 
                             Bundle parameters = new Bundle();
-                            parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                            parameters.putString("fields", "id, first_name, last_name, email,gender, birthday"); // Parámetros que pedimos a facebook
                             request.setParameters(parameters);
                             request.executeAsync();
-                            Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
 
                         }else {
                            // WalinnsAPI.getInstance().track("Login","error while login with Fb");
@@ -295,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         catch(JSONException e) {
             Log.d("Login db","Error parsing JSON");
+            Toast.makeText(getApplicationContext(),"Error while login",Toast.LENGTH_SHORT).show();
         }
         return null;
     }

@@ -55,12 +55,12 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics.ListNoteActivity"></activity>
 
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
-        <!--<meta-data-->
-            <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
-            <!--android:value="84R-987-6Z5Z" />-->
-        <!--<meta-data-->
-            <!--android:name="CLEVERTAP_TOKEN"-->
-            <!--android:value="abc-24b" />-->
+        <meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="84R-987-6Z5Z" />
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="abc-24b" />
         <!--<activity-->
             <!--android:name="com.clevertap.android.sdk.InAppNotificationActivity"-->
             <!--android:configChanges="orientation|keyboardHidden"-->
