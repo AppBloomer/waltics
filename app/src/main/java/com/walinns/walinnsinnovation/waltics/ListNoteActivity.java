@@ -81,7 +81,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
         if(db.getAllCompletedList().size()>0){
             complete_noteItemList = db.getAllCompletedList();
             if(complete_noteItemList.size()>0) {
-                WalinnsAPI.getInstance().track("Completed Notes Count"+complete_noteItemList.size());
+                WalinnsAPI.getInstance().track("Completed Notes Count",""+complete_noteItemList.size());
                 cleverTap.event.push("Completed Notes Count :" + complete_noteItemList.size());
                 recycler_view2.setAdapter(new CompleteAdapter(ListNoteActivity.this, complete_noteItemList));
             }
