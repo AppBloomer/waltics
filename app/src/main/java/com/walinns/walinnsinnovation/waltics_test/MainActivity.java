@@ -17,6 +17,7 @@ import com.backendless.exceptions.BackendlessFault;
 import com.google.android.gms.plus.Plus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.ApiClient;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.Defaults;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedCommon sharedCommon;
     ApiClient apiClient;
     String base_url="https://api.backendless.com";
+    MixpanelAPI mixpanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
+        mixpanel = MixpanelAPI.getInstance(MainActivity.this, "da441af72ea46850338ff94181b52624");
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -200,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb:
                 progress.setVisibility(View.VISIBLE);
+                mixpanel.track("Fb_login");
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
                         Arrays.asList("user_photos", "email", "user_birthday", "public_profile")
