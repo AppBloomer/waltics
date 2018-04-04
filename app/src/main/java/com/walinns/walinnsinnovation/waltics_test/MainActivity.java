@@ -14,6 +14,9 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
+import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
 import com.google.android.gms.plus.Plus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +50,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedCommon sharedCommon;
     ApiClient apiClient;
     String base_url="https://api.backendless.com";
+    CleverTapAPI cleverTapAPI;
     MixpanelAPI mixpanel;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        mixpanel = MixpanelAPI.getInstance(MainActivity.this, "da441af72ea46850338ff94181b52624");
+
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -151,6 +158,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        try {
+            cleverTapAPI = CleverTapAPI.getInstance(getApplicationContext());
+
+        } catch (CleverTapMetaDataNotFoundException e) {
+            // thrown if you haven't specified your CleverTap Account ID or Token in your AndroidManifest.xml
+        } catch (CleverTapPermissionsNotSatisfied e) {
+            // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
+        }
+        mixpanel = MixpanelAPI.getInstance(MainActivity.this, "da441af72ea46850338ff94181b52624");
+        mixpanel.identify("12148");
+
+        MixpanelAPI.People people = mixpanel.getPeople();
+        people.set("$email","walisdemo3@gmail.com");
+        people.set("$created","2018-03-27 21:32:30");
+        people.set("$gender","Male");
+        people.identify("b13efa02-1fec-49fa-9149-82c91e213dae");
+        people.initPushHandling("827269325094");
 
     }
 
@@ -202,8 +226,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb:
+                cleverTapAPI.event.push("inApp Notes");
+                mixpanel.track("fb_login");
                 progress.setVisibility(View.VISIBLE);
-                mixpanel.track("Fb_login");
+
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
                         Arrays.asList("user_photos", "email", "user_birthday", "public_profile")
