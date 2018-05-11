@@ -43,6 +43,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.mixpanel.android:mixpanel-android:5.+'
     compile 'com.google.android.gms:play-services-gcm:9.2.1'
-    implementation files('Libs/WalinnsAPI.jar')
+    implementation files('Libs/WalinnsApi.jar')
 }
 apply plugin: 'com.google.gms.google-services'
