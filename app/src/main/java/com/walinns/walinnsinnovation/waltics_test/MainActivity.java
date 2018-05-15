@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (CleverTapPermissionsNotSatisfied e) {
             // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
         }
+      //  cleverTap.setOptOut(true);
+
         linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus);
         linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb);
         linear_fb.setOnClickListener(this);

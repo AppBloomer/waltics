@@ -51,10 +51,10 @@
         <activity android:name="com.walinns.walinnsinnovation.waltics_test.ListNoteActivity"></activity>
           <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="84R-987-6Z5Z" />
+            android:value="447-9ZK-RR5Z" />
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="abc-24b" />
+            android:value="31c-a44" />
         <activity
             android:name="com.clevertap.android.sdk.InAppNotificationActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -79,6 +79,9 @@
         <meta-data
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="ic_stat_red_star"/>
+        <meta-data
+            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
+            android:value="0"/>
     </application>
 
 </manifest>
