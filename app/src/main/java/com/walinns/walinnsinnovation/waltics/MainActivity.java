@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
+        WalinnsAPI.getInstance().initialize(MainActivity.this,"21184cd49b4ee207a167");
         linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_g_plus);
         linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         // Handle success
                         System.out.println("Facebook login :" + loginResult.getAccessToken().getToken());
                         if(loginResult.getAccessToken().getToken()!=null){
-                            WalinnsAPI.getInstance().track("Button","Login with Facebook");
+                         //   WalinnsAPI.getInstance().track("Button","Login with Facebook");
                             GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                                 @Override
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
 
                         }else {
-                            WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                          //  WalinnsAPI.getInstance().track("Login","error while login with Fb");
 
                         }
                     }
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onError(FacebookException exception) {
-                        WalinnsAPI.getInstance().track("Login","error while login with Fb");
+                       // WalinnsAPI.getInstance().track("Login","error while login with Fb");
 
                     }
                 }
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("Google sign in", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            WalinnsAPI.getInstance().track("Button","Login with Google");
+          //  WalinnsAPI.getInstance().track("Button","Login with Google");
 
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else {
             System.out.println("Google login :"+ result.getStatus());
-            WalinnsAPI.getInstance().track("Login","error while login with google");
+          //  WalinnsAPI.getInstance().track("Login","error while login with google");
 
         }
     }
@@ -245,6 +245,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WalinnsAPI.getInstance().track("LoginActivity");
+       // WalinnsAPI.getInstance().track("LoginActivity");
     }
 }

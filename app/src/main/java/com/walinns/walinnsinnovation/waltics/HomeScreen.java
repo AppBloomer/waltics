@@ -26,7 +26,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        WalinnsAPI.getInstance().track("HomeScreen");
+      //  WalinnsAPI.getInstance().track("HomeScreen");
         txtusername = (TextView)findViewById(R.id.txtusername);
         txt_add = (RelativeLayout)findViewById(R.id.txt_add);
         txt_add.setOnClickListener(this);
@@ -40,7 +40,7 @@ public class HomeScreen extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.txt_add:
-                WalinnsAPI.getInstance().track("Button","Add Note");
+              //  WalinnsAPI.getInstance().track("Button","Add Note");
                 Intent intent = new Intent(HomeScreen.this,AddNoteActivity.class);
                 startActivity(intent);
                 break;

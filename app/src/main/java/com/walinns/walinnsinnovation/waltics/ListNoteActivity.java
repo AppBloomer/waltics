@@ -42,7 +42,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-        WalinnsAPI.getInstance().track("ListNoteActivity");
+      //  WalinnsAPI.getInstance().track("ListNoteActivity");
         activity = ListNoteActivity.this;
         db = new DatabaseHandler(ListNoteActivity.this);
         recycler_view = (RecyclerView)findViewById(R.id.recycler_view);
@@ -58,7 +58,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
         recycler_view2.setItemAnimator(new DefaultItemAnimator());
         if(db.getAllContacts().size()>0) {
             noteItemList = db.getAllContacts();
-            WalinnsAPI.getInstance().track("Notes Count"+noteItemList.size());
+           // WalinnsAPI.getInstance().track("Notes Count"+noteItemList.size());
             System.out.println("get from database :" + noteItemList.size());
         }
         if(noteItemList.size()>0) {
@@ -68,7 +68,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
         if(db.getAllCompletedList().size()>0){
             complete_noteItemList = db.getAllCompletedList();
             if(complete_noteItemList.size()>0) {
-                WalinnsAPI.getInstance().track("Completed Notes Count"+complete_noteItemList.size());
+              //  WalinnsAPI.getInstance().track("Completed Notes Count"+complete_noteItemList.size());
 
                 recycler_view2.setAdapter(new CompleteAdapter(ListNoteActivity.this, complete_noteItemList));
             }
@@ -81,7 +81,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.txt_add:
-                WalinnsAPI.getInstance().track("Button","Add Note");
+               // WalinnsAPI.getInstance().track("Button","Add Note");
                 Intent intent = new Intent(ListNoteActivity.this,AddNoteActivity.class);
                 startActivity(intent);
                 break;
@@ -92,7 +92,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view, MotionEvent motionEvent,int position, List<NoteItem>noteItemList,String click_type) {
         if(click_type.equals("single")){
-            WalinnsAPI.getInstance().track("Edit Notes",noteItemList.get(position).getNote_text());
+          //  WalinnsAPI.getInstance().track("Edit Notes",noteItemList.get(position).getNote_text());
             Intent intent = new Intent(ListNoteActivity.this, AddNoteActivity.class);
             intent.putExtra("note_text",noteItemList.get(position).getNote_text());
             intent.putExtra("note_cat",noteItemList.get(position).getNote_cat());
@@ -143,7 +143,7 @@ public class ListNoteActivity extends AppCompatActivity implements View.OnClickL
                     complete_noteItemList.add(noteItem);
                     db.addCompleteItem(noteItem);
                     if(complete_noteItemList.size()>0) {
-                        WalinnsAPI.getInstance().track("drag and drop",noteItems.get(pos).getNote_text());
+                       // WalinnsAPI.getInstance().track("drag and drop",noteItems.get(pos).getNote_text());
 
                         db.deleteTitle(noteItems.get(pos).getNote_text());
                         recycler_view2.setAdapter(new CompleteAdapter(activity, complete_noteItemList));
