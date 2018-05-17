@@ -9,12 +9,12 @@
      <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_PROFILE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -75,15 +75,15 @@
               />
         <meta-data
             android:name="CLEVERTAP_ACCOUNT_ID"
-            android:value="869-K8W-8Z5Z"/>
+            android:value="447-9ZK-RR5Z"/>
         <meta-data
             android:name="CLEVERTAP_TOKEN"
-            android:value="0b3-c6b"/>
-
-
+            android:value="31c-a44"/>
         <meta-data
-        android:name="CLEVERTAP_INAPP_EXCLUDE"
-        android:value="MainActivity, MainActivity" />
+            android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
+            android:value="1"/>
+
+
 
          <!--<service-->
         <!--android:name="com.clevertap.android.sdk.FcmTokenListenerService">-->
@@ -98,9 +98,7 @@
         <!--<action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
         <!--</intent-filter>-->
         <!--</service>-->
-        <meta-data
-        android:name="CLEVERTAP_NOTIFICATION_ICON"
-        android:value="ic_stat_red_star"/>
+
 
         <service android:name="com.walinns.walinnsapi.WAService" android:enabled="true" android:exported="true"></service>
 

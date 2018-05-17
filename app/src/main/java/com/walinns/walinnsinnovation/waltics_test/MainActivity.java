@@ -21,6 +21,7 @@ import com.google.android.gms.plus.Plus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
+import com.walinns.walinnsapi.WalinnsAPI;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.ApiClient;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.Defaults;
 import com.walinns.walinnsinnovation.waltics_test.DataBase.SharedCommon;
@@ -40,7 +41,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.walinns.walinnsapi.WalinnsAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Retrofit retrofit = new Retrofit.Builder().baseUrl(base_url+"/"+ Defaults.APPLICATION_ID+"/"+Defaults.API_KEY+"/")
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         apiClient = retrofit.create(ApiClient.class);
-        WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
+        WalinnsAPI.getInstance().initialize(MainActivity.this,"3c149e37c460d419a946");
         linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus);
         linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
@@ -112,8 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         System.out.println("Facebook login :" + loginResult.getAccessToken().getToken());
                         if(loginResult.getAccessToken().getToken()!=null){
                             sharedCommon.save(SharedCommon.access_token,loginResult.getAccessToken().getToken());
-                            WalinnsAPI.getInstance().track("Button","Login with Facebook");
-                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                             GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                                 @Override
                                 public void onCompleted(JSONObject object, GraphResponse response) {
@@ -134,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             request.executeAsync();
 
                         }else {
-                            WalinnsAPI.getInstance().track("Login","error while login with Fb");
 
                         }
                     }
@@ -145,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onError(FacebookException exception) {
-                        WalinnsAPI.getInstance().track("Login","error while login with Fb");
 
                     }
                 }
@@ -160,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
         try {
             cleverTapAPI = CleverTapAPI.getInstance(getApplicationContext());
+           // cleverTapAPI.setOptOut(true);
+
 
         } catch (CleverTapMetaDataNotFoundException e) {
             // thrown if you haven't specified your CleverTap Account ID or Token in your AndroidManifest.xml
@@ -175,6 +174,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         people.set("$gender","Male");
         people.identify("b13efa02-1fec-49fa-9149-82c91e213dae");
         people.initPushHandling("827269325094");
+
+
+
+
 
     }
 
@@ -261,7 +264,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("Google sign in", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            WalinnsAPI.getInstance().track("Button","Login with Google");
 
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
@@ -287,7 +289,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }else {
             System.out.println("Google login :"+ result.getStatus());
-            WalinnsAPI.getInstance().track("Login","error while login with google");
 
         }
     }
@@ -346,6 +347,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WalinnsAPI.getInstance().track("LoginActivity");
-    }
+     }
 }
