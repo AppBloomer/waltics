@@ -17,6 +17,9 @@ import com.backendless.exceptions.BackendlessFault;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.analytics.AnalyticsReceiver;
 import com.google.android.gms.plus.Plus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String base_url="https://api.backendless.com";
     CleverTapAPI cleverTapAPI;
     MixpanelAPI mixpanel;
+    private static Tracker sTracker;
 
 
 
@@ -85,10 +89,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             FacebookSdk.setIsDebugEnabled(true);
             FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
         }
+
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
-
+        MyApplication application = (MyApplication) getApplication();
+        sTracker = application.getDefaultTracker();
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -176,6 +182,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         people.initPushHandling("827269325094");
 
 
+        sTracker.setScreenName("Image~" + "MainActivity");
+        sTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
 
 
 
