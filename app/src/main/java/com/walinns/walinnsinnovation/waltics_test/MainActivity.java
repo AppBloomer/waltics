@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
         try {
             cleverTapAPI = CleverTapAPI.getInstance(getApplicationContext());
-           // cleverTapAPI.setOptOut(true);
+           //cleverTapAPI.setOptOut(true);
 
 
         } catch (CleverTapMetaDataNotFoundException e) {
