@@ -36,6 +36,8 @@ import android.widget.Toast;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.exceptions.CleverTapMetaDataNotFoundException;
 import com.clevertap.android.sdk.exceptions.CleverTapPermissionsNotSatisfied;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleSignInOptions gso;
     private GoogleApiClient mGoogleApiClient;
     private int SIGN_IN = 30;
-
+    private static Tracker sTracker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getSupportActionBar().hide();
         }
         WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
+        MyApplication application = (MyApplication) getApplication();
+        sTracker = application.getDefaultTracker();
         try {
             cleverTap = CleverTapAPI.getInstance(getApplicationContext());
 
@@ -178,6 +182,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addApi(Plus.API)
                 .build();
 
+        sTracker.setScreenName("Image~" + "MainActivity");
+        sTracker.send(new HitBuilders.ScreenViewBuilder().build());
+        sTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
 
     }
 
