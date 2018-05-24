@@ -102,7 +102,14 @@
             </intent-filter>
         </service>
         <!-- Used for install referrer tracking -->
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:exported="true">
+        <!--<receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <receiver
+            android:name="com.walinns.walinnsapi.WAInstallRefferer"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>

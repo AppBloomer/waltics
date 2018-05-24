@@ -188,6 +188,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCategory("Action")
                 .setAction("Share")
                 .build());
+        Intent i = new Intent("com.android.vending.INSTALL_REFERRER");
+//Set Package name
+        i.setPackage("com.walinns.walinnsinnovation.waltics");
+//referrer is a composition of the parameter of the campaing
+        i.putExtra("referrer",
+                "utm_source%3Dfacebook%26utm_medium%3Dcpc%26utm_term%3Drunning%252Bshoes%26anid%3Dadmob");
+        sendBroadcast(i);
 
     }
 
