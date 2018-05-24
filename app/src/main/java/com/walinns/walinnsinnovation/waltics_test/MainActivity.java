@@ -171,15 +171,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } catch (CleverTapPermissionsNotSatisfied e) {
             // thrown if you haven’t requested the required permissions in your AndroidManifest.xml
         }
-        mixpanel = MixpanelAPI.getInstance(MainActivity.this, "da441af72ea46850338ff94181b52624");
-        mixpanel.identify("12148");
-
-        MixpanelAPI.People people = mixpanel.getPeople();
-        people.set("$email","walisdemo3@gmail.com");
-        people.set("$created","2018-03-27 21:32:30");
-        people.set("$gender","Male");
-        people.identify("b13efa02-1fec-49fa-9149-82c91e213dae");
-        people.initPushHandling("827269325094");
+        mixpanel = MixpanelAPI.getInstance(MainActivity.this, "2d6abb709b9a4c779f543d4508db9b8c");
+        mixpanel.track("MainActivity");
 
 
         sTracker.setScreenName("Image~" + "MainActivity");
@@ -189,7 +182,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setAction("Share")
                 .build());
 
-
+        Intent i = new Intent("com.android.vending.INSTALL_REFERRER");
+//Set Package name
+        i.setPackage("com.walinns.walinnsinnovation.waltics_test");
+//referrer is a composition of the parameter of the campaing
+        i.putExtra("referrer",
+                "utm_source=facebook&utm_medium=cpc&utm_term=running%2Bshoes&anid=admob");
+        sendBroadcast(i);
 
     }
 
