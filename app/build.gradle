@@ -36,6 +36,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.2.1'
     compile 'com.google.firebase:firebase-core:9.2.1'
     compile 'com.android.support:multidex:1.0.1'
-    implementation files('libs/WalinnsApi.jar')
+    implementation files('Libs/WalinnsApi.jar')
 }
 apply plugin: 'com.google.gms.google-services'
