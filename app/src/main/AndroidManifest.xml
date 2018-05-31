@@ -101,12 +101,19 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <activity
+        android:name="com.walinns.walinnsapi.InAppNotification"
+        android:configChanges="orientation|keyboardHidden"
+          />
+
+
         <!-- Used for install referrer tracking -->
         <!--<receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:exported="true">-->
             <!--<intent-filter>-->
                 <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
             <!--</intent-filter>-->
         <!--</receiver>-->
+        <!--//WAInstallRefferer-->
         <receiver
             android:name="com.walinns.walinnsapi.WAInstallRefferer"
             android:exported="true">
