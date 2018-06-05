@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 cleverTapAPI.event.push("inApp Notes");
                 mixpanel.track("fb_login");
                 progress.setVisibility(View.VISIBLE);
+                cleverTapAPI.event.push("Product viewed");
 
                 LoginManager.getInstance().logInWithReadPermissions(
                         this,
