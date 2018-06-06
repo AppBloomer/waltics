@@ -66,10 +66,10 @@
         <meta-data
             android:name="CLEVERTAP_TOKEN"
             android:value="abc-24b" />
-        <!--<activity-->
-            <!--android:name="com.clevertap.android.sdk.InAppNotificationActivity"-->
-            <!--android:configChanges="orientation|keyboardHidden"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+        <activity
+            android:name="com.clevertap.android.sdk.InAppNotificationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--<meta-data-->
             <!--android:name="CLEVERTAP_INAPP_EXCLUDE"-->

@@ -4,11 +4,14 @@ import android.*;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -196,8 +199,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                "utm_source%3Dfacebook%26utm_medium%3Dcpc%26utm_term%3Drunning%252Bshoes%26anid%3Dadmob");
 //        sendBroadcast(i);
 
+        ActivityInfo activityInfo = null;
+        try {
+            activityInfo = getPackageManager().getActivityInfo(
+                    getComponentName(), PackageManager.GET_META_DATA);
+            String title = activityInfo.loadLabel(getPackageManager())
+                    .toString();
+            System.out.println("Activity name :" + title);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+        List< ActivityManager.RunningTaskInfo > taskInfo = am.getRunningTasks(1);
+//
+//        if(taskInfo.size()>0){
+//            for (int i=0;i<taskInfo.size();i++){
+//                System.out.println("Activity name ...:" + taskInfo.size()+"..."+taskInfo.get(i).baseActivity.getClassName());
+//            }
+//        }
+        String resumeName = "com.walinns.walinnsinnovation.waltics.AddNoteActivity";
+        try {
+            Class newClass = Class.forName(resumeName);
+            Intent resume = new Intent(this, newClass);
+            System.out.println("Activity name!!! ...:" +isCallable(resume) + ".."+ newClass.getSimpleName() + "....."+resumeName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Activity name!!! ...: erorr" +e.getMessage() +"..."+e.toString() );
+
+        }
+
+
+
+
     }
 
+    private boolean isCallable(Intent intent) {
+        List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        System.out.println("Activity name list.size()...:" + list.size());
+
+        return list.size() > 0;
+    }
 
 
     @Override
