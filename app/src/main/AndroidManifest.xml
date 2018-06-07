@@ -69,19 +69,21 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name="com.walinns.walinnsapi.InAppNotification"
-            android:theme="@style/inAppStyle"
-            />
+        <activity
+            android:name="com.walinns.walinnsapi.InAppNotification"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
         <!--<activity-->
             <!--android:name="com.clevertap.android.sdk.InAppNotificationActivity"-->
             <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
             <!--android:configChanges="orientation|keyboardHidden"/>-->
-        <!--<meta-data-->
-            <!--android:name="CLEVERTAP_ACCOUNT_ID"-->
-            <!--android:value="TEST-967-RZ7-7W5Z"/>-->
-        <!--<meta-data-->
-            <!--android:name="CLEVERTAP_TOKEN"-->
-            <!--android:value="TEST-a12-a6c"/>-->
+        <meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="TEST-967-RZ7-7W5Z"/>
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="TEST-a12-a6c"/>
 
 
         <!--<meta-data-->
