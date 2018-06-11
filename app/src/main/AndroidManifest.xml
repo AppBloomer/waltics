@@ -102,9 +102,10 @@
             </intent-filter>
         </service>
         <activity
-        android:name="com.walinns.walinnsapi.InAppNotification"
-        android:configChanges="orientation|keyboardHidden"
-          />
+            android:name="com.walinns.walinnsapi.InAppNotification"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
 
 
         <!-- Used for install referrer tracking -->
