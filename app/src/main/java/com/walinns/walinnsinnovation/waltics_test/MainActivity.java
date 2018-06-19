@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Retrofit retrofit = new Retrofit.Builder().baseUrl(base_url+"/"+ Defaults.APPLICATION_ID+"/"+Defaults.API_KEY+"/")
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         apiClient = retrofit.create(ApiClient.class);
-        WalinnsAPI.getInstance().initialize(MainActivity.this,"b9d2e92935000ffd585cc3092f9b03cd");
+        WalinnsAPI.getInstance().initialize(MainActivity.this,"3c149e37c460d419a946");
         linear_g_plus = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_g_plus);
         linear_fb = (LinearLayout)findViewById(com.walinns.walinnsinnovation.waltics_test.R.id.linear_fb);
         linear_fb.setOnClickListener(this);
